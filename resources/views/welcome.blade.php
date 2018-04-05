@@ -3,6 +3,7 @@
 @section('content')
     <div class="uk-container uk-text-center uk-margin-large-bottom">
         <h1 class="uk-margin">{{ config('app.name') }}: 一个 Kindle 期刊推送网站</h1>
+        <p>简单设置，稳定地推送精选新闻到你的 Kindle</p>
         <a class="uk-margin uk-button uk-button-primary">开始使用</a>
         <div class="uk-grid-divider uk-margin-large-top uk-child-width-1-1@s uk-text-left@m uk-text-center@s" uk-grid>
             <div class="uk-width-1-4@m"><h3>只需 3 步</h3>快速开始你的 Kindle 订阅</div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,4 +26,21 @@ class User extends Authenticatable
 	protected $hidden = [
 		'password', 'remember_token',
 	];
+
+	/**
+	 * 应该被转换成原生类型的属性。
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'addressee' => 'array',
+	];
+
+	/**
+	 * 获得此用户所属的用户组。
+	 */
+	public function group()
+	{
+		return $this->belongsTo('App\Models\Group');
+	}
 }
