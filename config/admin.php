@@ -5,22 +5,22 @@ return [
 	/*
 	 * Laravel-admin name.
 	 */
-	'name'          => 'Laravel-admin',
+	'name'      => 'UltraPush Admin',
 
 	/*
 	 * Logo in admin panel header.
 	 */
-	'logo'          => '<b>Laravel</b> admin',
+	'logo'      => '<b>UltraPush</b> admin',
 
 	/*
 	 * Mini-logo in admin panel header.
 	 */
-	'logo-mini'     => '<b>La</b>',
+	'logo-mini' => '<b>UP</b>',
 
 	/*
 	 * Route configuration.
 	 */
-	'route'         => [
+	'route'     => [
 
 		'prefix' => 'admin',
 
@@ -32,22 +32,22 @@ return [
 	/*
 	 * Laravel-admin install directory.
 	 */
-	'directory'     => app_path('Admin'),
+	'directory' => app_path('Admin'),
 
 	/*
 	 * Laravel-admin html title.
 	 */
-	'title'         => 'Admin',
+	'title'     => 'Admin',
 
 	/*
 	 * Use `https`.
 	 */
-	'secure'        => false,
+	'secure'    => false,
 
 	/*
 	 * Laravel-admin auth setting.
 	 */
-	'auth'          => [
+	'auth'      => [
 		'guards' => [
 			'admin' => [
 				'driver'   => 'session',
