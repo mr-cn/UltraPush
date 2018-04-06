@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
 			$table->string('plugin'); // 采集插件的唯一ID
 			$table->string('name'); // 显示名
 			$table->text('description'); // 描述
+			$table->string('tag'); // 分类标签
 			$table->timestamps();
 		});
 		Schema::create('book_user', function (Blueprint $table) {
