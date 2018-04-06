@@ -38,12 +38,12 @@ class HomeController extends Controller
 	public function market(Request $request)
 	{
 		$tag        = $request->get('tag') ?: "全部";
-		$allTag     = Book::all()->pluck('tag');
+		$allTag     = Book::all()->pluck('tag')->unique();
 		$isErrorTag = (Book::where('tag', $tag)->count() == 0) && ($tag != "全部"); // 判断get提交的Tag是不是真的Tag
 		if ($tag == "全部" || $isErrorTag) { // 全部书籍 或者 输入了错误的标签
-			$books = Book::paginate(15);
+			$books = Book::paginate(8);
 		} else {
-			$books = Book::where('tag', $tag)->paginate(15);
+			$books = Book::where('tag', $tag)->paginate(8);
 		}
 		return view('market')->with([
 			'books'      => $books,
