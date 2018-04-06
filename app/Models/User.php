@@ -49,6 +49,6 @@ class User extends Authenticatable
 	 */
 	public function books()
 	{
-		return $this->belongsToMany('App\Models\Book')->withPivot('option');
+		return $this->belongsToMany('App\Models\Book')->using('App\Models\BookUser')->withPivot('option');
 	}
 }

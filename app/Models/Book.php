@@ -11,6 +11,6 @@ class Book extends Model
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('App\Models\User')->withPivot('option');
+		return $this->belongsToMany('App\Models\User')->using('App\Models\BookUser')->withPivot('option');
 	}
 }
