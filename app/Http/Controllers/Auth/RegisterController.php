@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\Group;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -58,14 +60,28 @@ class RegisterController extends Controller
 	 * Create a new user instance after a valid registration.
 	 *
 	 * @param  array $data
-	 * @return \App\User
+	 * @return \App\Models\User
 	 */
 	protected function create(array $data)
 	{
 		return User::create([
-			'name'     => $data['name'],
-			'email'    => $data['email'],
-			'password' => bcrypt($data['password']),
+			'name'       => $data['name'],
+			'email'      => $data['email'],
+			'password'   => bcrypt($data['password']),
+			'verifyCode' => str_random(6),
 		]);
+	}
+
+	/**
+	 * The user has been registered.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @param  mixed $user
+	 * @return mixed
+	 */
+	protected function registered(Request $request, $user)
+	{
+		// 将注册的用户关联到用户组
+		Group::find(config('auth.defaultGroup', 1))->first()->users()->save($user);
 	}
 }

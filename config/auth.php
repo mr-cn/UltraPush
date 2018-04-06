@@ -99,4 +99,6 @@ return [
 		],
 	],
 
+	// 默认用户组ID
+	'defaultGroup' => 1,
 ];
