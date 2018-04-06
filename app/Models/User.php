@@ -15,7 +15,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
+		'name', 'email', 'password', 'verifyCode'
 	];
 
 	/**
@@ -42,5 +42,13 @@ class User extends Authenticatable
 	public function group()
 	{
 		return $this->belongsTo('App\Models\Group');
+	}
+
+	/**
+	 * 获得此用户订阅的推送项目。
+	 */
+	public function books()
+	{
+		return $this->belongsToMany('App\Models\Book')->withPivot('option');
 	}
 }

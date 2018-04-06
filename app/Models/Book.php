@@ -1,17 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
 	/**
-	 * 应该被转换成原生类型的属性。
-	 *
-	 * @var array
+	 * 获得订阅此推送项目的用户。
 	 */
-	protected $casts = [
-		'option' => 'array',
-	];
+	public function users()
+	{
+		return $this->belongsToMany('App\Models\User')->withPivot('option');
+	}
 }

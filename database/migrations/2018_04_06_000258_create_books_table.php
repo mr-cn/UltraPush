@@ -16,9 +16,15 @@ class CreateBooksTable extends Migration
 		Schema::create('books', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('plugin'); // 采集插件的唯一ID
-			$table->string('name'); // 书名
+			$table->string('name'); // 显示名
 			$table->text('description'); // 描述
-			$table->json('option'); // 采集参数，如 RSS 地址（由采集插件定义格式）
+			$table->timestamps();
+		});
+		Schema::create('book_user', function (Blueprint $table) {
+			$table->increments('id');
+			$table->integer('book_id');
+			$table->integer('user_id');
+			$table->json('option')->nullable(); // 采集参数，如 RSS 地址（由采集插件定义格式）
 			$table->timestamps();
 		});
 	}
@@ -31,5 +37,6 @@ class CreateBooksTable extends Migration
 	public function down()
 	{
 		Schema::dropIfExists('books');
+		Schema::dropIfExists('book_user');
 	}
 }
