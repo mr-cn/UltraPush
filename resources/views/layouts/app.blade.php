@@ -29,7 +29,7 @@
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li><a href="#">所有订阅源</a></li>
                                         <li class="uk-nav-divider"></li>
-                                        <li><a href="#">我的订阅</a></li>
+                                        <li><a href="{{ route('home') }}">我的订阅</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -74,6 +74,7 @@
 
 <!-- Scripts -->
 <script src="{{ mix('js/app.js') }}"></script>
+@stack('scripts')
 
 </body>
 </html>
