@@ -27,4 +27,14 @@ class HomeController extends Controller
 		$addressees = Auth::user()->addressee;
 		return view('home')->with(['books' => $books, 'addressees' => $addressees]);
 	}
+
+	/**
+	 * 显示所有栏目
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function market()
+	{
+		return view('market')->with([]);
+	}
 }

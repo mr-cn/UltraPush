@@ -27,7 +27,7 @@
                                 <a href="#">期刊</a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a href="#">所有订阅源</a></li>
+                                        <li><a href="{{ route('market') }}">所有栏目</a></li>
                                         <li class="uk-nav-divider"></li>
                                         <li><a href="{{ route('home') }}">我的订阅</a></li>
                                     </ul>
