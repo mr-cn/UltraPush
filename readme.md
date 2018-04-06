@@ -40,6 +40,7 @@ UltraPush 的目的很简单，就是做一个优先保证**稳定性、质量**
 ## 环境需要
 
  - PHP >= 7.1 (包含 OpenSSL,PDO,Mbstring,Tokenizer,XML,Fileinfo,cURL,SMTP 扩展)
+ - GD Library (>=2.0) 或 Imagick PHP extension (>=6.5.7)
  - MySQL >= 5.6
  - Redis（可选，用于缓存加速）
  - Nodejs（可选，用于前端资源编译）
