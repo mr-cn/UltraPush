@@ -33,7 +33,7 @@
                 <div class="uk-margin">
                     <div class="uk-form-controls">
                         <button type="submit" class="uk-button uk-button-default">登录</button>
-                        <a href="{{ route('password.request') }}">找回密码</a>
+                        <a class="uk-button uk-button-text" href="{{ route('password.request') }}">找回密码</a>
                     </div>
                 </div>
             </form>
