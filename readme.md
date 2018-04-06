@@ -1,58 +1,96 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><b> UltraPush </b>: 一个 Kindle 期刊推送网站</p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<p align="center">简单设置，稳定地推送精选新闻到你的 Kindle</p>
 
-## About Laravel
+## 目的
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+现有的 Kindle RSS 推送服务一大堆，但大多要么付费、要么不稳定、要么无人维护、要么限制诸多。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+UltraPush 的目的很简单，就是一个优先保证**稳定性**的 Kindle RSS 推送网站。
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+## 进度
 
-## Learning Laravel
+- [x] 基本的框架
+- [ ] RSS 读取
+- [ ] SMTP 邮件发送
+- [ ] 生成期刊格式的 Kindle 电子书
+- [ ] 推送逻辑
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+以上功能将优先完成：
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+- [ ] 全文采集（针对只提供了摘要的 RSS）
+- [ ] 图片处理
+- [ ] 缓存
 
-## Laravel Sponsors
+## 原理
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+在用户设置的推送时间执行：
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+1. RSS 获取内容清单。将昨日推送时间到今日的推送时间的所有内容列出清单。对比缓存，找出不在缓存中的文章（一个项目可能被两个用户订阅。在他们的推送时间之差内的是新内容）
+2. 采集获取全文
+3. 采集图片，并进行处理（如灰度、长图裁剪等等）
+4. 保存在缓存中。
+5. 取出缓存中在推送时间范围内的文章。套入 HTML 模版并加入 CSS。
+6. 推送
+
+## 环境需要
+
+ - PHP >= 7.1 (包含 OpenSSL,PDO,Mbstring,Tokenizer,XML,Fileinfo,cURL,SMTP 扩展)
+ - MySQL >= 5.6
+ - Redis（可选，用于缓存加速）
+ - Nodejs（可选，用于前端资源编译）
+
+## 部署
+
+修改 `.env` 文件。
+
+```
+# 设置权限
+$ chmod -R 755 *
+$ chmod -R 777 storage
+
+# 安装依赖
+$ composer install --no-dev
+# 若没有 Nodejs 可跳过下步
+$ npm install
+
+# 安装数据库
+$ php artisan admin:install
+
+# 编译前端资源 (若没有 Nodejs 可跳过)
+$ npm run prod
+
+# 生成 Key
+$ php artisan key:generate
+
+# 应用优化
+$ php artisan clear-compiled
+$ php artisan cache:clear
+$ php artisan config:cache
+$ php artisan optimize
+$ composer dump-autoload --optimize
+```
+
+设置 Cron 以支持 Laravel 的任务调度系统。
+
+`* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1`
+
+*修改`path-to-your-project`为你自己的目录*
+
+配置 Nginx 或 Apache 监听 public 目录即可。
+
+*若使用 Nginx 还需要设置伪静态。下面是供参考的配置*
+
+```
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+十分希望你的 Contributing！请直接发 Pr。
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+使用 [MIT license](https://opensource.org/licenses/MIT).
