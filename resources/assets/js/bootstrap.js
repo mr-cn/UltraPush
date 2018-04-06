@@ -9,8 +9,7 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
-    require('uikit');
-    require('uikit/dist/js/uikit-icons.js');
+    window.UIkit = require('uikit');
 
 } catch (e) {
 }
