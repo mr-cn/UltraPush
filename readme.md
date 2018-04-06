@@ -6,7 +6,7 @@
 
 现有的 Kindle RSS 推送服务一大堆，但大多要么付费、要么不稳定、要么无人维护、要么限制诸多。
 
-UltraPush 的目的很简单，就是一个优先保证**稳定性**的 Kindle RSS 推送网站。
+UltraPush 的目的很简单，就是做一个优先保证**稳定性、质量**的 Kindle RSS 推送网站。
 
 ## 进度
 
@@ -91,7 +91,7 @@ location / {
 
 ## Contributing
 
-十分希望你的 Contributing！请直接发 Pr。
+十分需要你的 Contributing！可直接 Pr。
 
 ## License
 
