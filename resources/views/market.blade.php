@@ -29,8 +29,11 @@
                     @foreach($books as $book)
                         <article class="uk-comment uk-margin-bottom">
                             <header class="uk-comment-header uk-flex-middle">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
-                                                                                 href="#">{{ $book->name }}</a>
+                                <h4 class="uk-comment-title uk-margin-remove">
+                                    <a class="uk-link-reset" href="#">{{ $book->name }}</a>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->books->contains($book))
+                                        <span class="uk-badge">已订阅</span>
+                                    @endif
                                 </h4>
                                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                     <li><span>{{ $book->tag }}</span></li>
