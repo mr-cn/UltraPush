@@ -30,19 +30,21 @@
                         <article class="uk-comment uk-margin-bottom">
                             <header class="uk-comment-header uk-flex-middle">
                                 <h4 class="uk-comment-title uk-margin-remove">
-                                    <a class="uk-link-reset" href="#">{{ $book->name }}</a>
+                                    <a class="uk-link-reset"
+                                       href="{{ route('bookDetail', $book->id) }}">{{ $book->name }}</a>
                                     @if(\Illuminate\Support\Facades\Auth::user()->books->contains($book))
-                                        <span class="uk-badge">已订阅</span>
+                                        <span class="uk-label">已订阅</span>
                                     @endif
                                 </h4>
                                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                     <li><span>{{ $book->tag }}</span></li>
-                                    <li><a href="#">预览</a></li>
+                                    <li><a href="{{ route('bookDetail', $book->id) }}">预览</a></li>
                                 </ul>
                             </header>
                             <div class="uk-comment-body">
                                 <p>{{ $book->description }}</p>
-                                <a href="#" class="uk-button uk-button-primary">查看详情</a>
+                                <a href="{{ route('bookDetail', $book->id) }}"
+                                   class="uk-button uk-button-primary">查看详情</a>
                             </div>
                         </article>
                     @endforeach

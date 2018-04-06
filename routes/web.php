@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/market', 'HomeController@market')->name('market');
+Route::get('/market/detail/{id}', 'HomeController@bookDetail')->name('bookDetail');
+Route::get('/market/detail/{id}/feed', 'HomeController@bookFeed')->name('bookFeed');

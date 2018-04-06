@@ -52,4 +52,37 @@ class HomeController extends Controller
 			'currentTag' => $tag
 		]);
 	}
+
+	/**
+	 * 书籍详情
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function bookDetail($id)
+	{
+		$book = Book::find($id);
+		return view('detail')->with([
+			'book' => $book
+		]);
+	}
+
+	/**
+	 * 获得文章列表
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function bookFeed($id)
+	{
+		$book = Book::find($id);
+		// 测试数据
+		return json_encode([
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059'],
+			['title' => '《System Shock》开源', 'link' => 'https://www.solidot.org/story?sid=56059']
+		]);
+	}
 }
